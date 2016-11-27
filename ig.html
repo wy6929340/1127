@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <style>
+        *{
+            -webkit-box-sizing:border-box;
+            -moz-box-sizing:border-box;
+             box-sizing:border-box;
+            font-family: "微軟正黑體";
+        }
+        body,h1,h2,h3,h4,h5,h6{
+            margin: 0;
+            padding: 0;
+        }
+        img{
+            width: 100%;
+        }
+        .container{
+            width: 900px;
+            margin: auto;
+        }
+        .item{
+            width:250px;
+            height: 320px;
+            float: left;
+            margin: 5px;
+            padding: 5px;
+            background-color:azure;
+        }
+        
+    </style>
+</head>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+   <script type="text/javascript">
+       $(function(){
+           var url="https://api.instagram.com/v1/users/self/media/recent/";
+           
+           
+           $.ajax({
+               url:url,
+               dataType:"jsonp",
+               data:{
+                   access_token:"18207645.522924d.a0308dd87201401ba3d9f828def12ea2",
+                   count:9
+               },
+               success:function(e){
+                  $(e.data).each(function(){
+                      var c ="<div class='item'>"
+                      //c +="<div>"+this.caption.text+"</div>"
+                      c +="<img src='"+this.images.standard_resolution.url+"'>"
+                       c +="<div>"+this.caption.text+"</div>"
+                       c+="</div>"
+                     $(".container").append(c);
+                      
+                      
+                  })
+                   //var c= "<div class='item'>"
+                    //c +="<h2>"+e.name+"</h2>"
+                    //c +="<p>"+e.main.temp+"</p>"
+                    //c +="<p>"+e.weather[0].desription+"</p>"
+                    //c +="<img src='http://openweathermap.org/img/w/"+e.weather[0].icon+".png'>"
+                   //$(".container").append(c);
+                 
+             },
+               error:function(){
+                    console.log("error");
+             }
+           })
+       })
+	</script>
+
+<body>
+	
+
+	<div class="container">
+      
+    </div>
+</body>
+</html>

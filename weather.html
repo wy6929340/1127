@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+   <script type="text/javascript">
+       $(function(){
+           var url="http://api.openweathermap.org/data/2.5/forecast/daily?q=taipei&units=metric&cnt=7&appid=ad0f8f0de859ac2650f9e6c618dbb614";
+           
+           
+           $.ajax({
+               url:url,
+               dataType:"json",
+               success:function(e){
+                  $(e.list).each(function(){
+                      //console.log(e.city.coord.lon);
+                      var myDate = new Date(this.dt*1000);
+                     // var c ="<h1>"+myDate+"<h1>";
+                      var Y = myDate.getFullYear();
+                      var M = myDate.getMonth()+1;
+                      var D = myDate.getDate();
+                      var d=myDate.getDay();
+                      var day = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+                      var img_path ="http://openweathermap.org/img/w/"
+                      var c ="<h1>"+Y+"-"+M+"-"+D+day[d]+"<h1>";
+                      c +="<p>"+parseInt(this.temp.max)+"</p>"
+                      c +="<p>"+parseInt(this.temp.min)+"</p>"
+                      c +="<p>"+this.weather[0].description+"</p>"
+                      c +="<img src='"+img_path+this.weather[0].icon+".png'>"
+                      
+                      
+                      //var c ="<h1>"+this.temp.day+"<h1>";
+                      
+                      $(".container").append(c);
+                      
+                      
+                  })
+                   //var c= "<div class='item'>"
+                    //c +="<h2>"+e.name+"</h2>"
+                    //c +="<p>"+e.main.temp+"</p>"
+                    //c +="<p>"+e.weather[0].desription+"</p>"
+                    //c +="<img src='http://openweathermap.org/img/w/"+e.weather[0].icon+".png'>"
+                   //$(".container").append(c);
+                 
+             },
+               error:function(){
+                    console.log("error");
+             }
+           })
+       })
+	</script>
+
+<body>
+	
+
+	<div class="container">
+      <div class ="temp"></div>
+    </div>
+</body>
+</html>
